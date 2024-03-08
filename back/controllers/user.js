@@ -1,10 +1,10 @@
 const bcrypt = require("bcrypt");
 
-const User = require("../models/User");
+const User = require("../models/user");
 console.log("test");
 
 exports.signup = (req, res, next) => {
-    console.log("signup");
+console.log(req.body);
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -14,9 +14,14 @@ exports.signup = (req, res, next) => {
       });
       user
         .save()
-        .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
+        .then(() => {
+          console.log("utilisateur ok");
+          res.status(201).json({ message: "Utilisateur créé !" });
+        })
+
+        // .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
         .catch((error) => res.status(400).json({ error }));
-        console.log("utilisateur ok");
+        // console.log("utilisateur ok");
     })
     .catch((error) => res.status(500).json({ error }));
 };

@@ -4,6 +4,8 @@ const userRoutes = require('./routes/user');
 const bookRoutes = require('./routes/book');
 const app = express();
 
+app.use(express.json());
+
 mongoose.connect('mongodb+srv://elisabethmalek:Kathleen4@clusterelisabeth.5m2d624.mongodb.net/',
   {
     useNewUrlParser: true,
@@ -19,24 +21,24 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  console.log('Requête reçue !');
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log('Requête reçue !');
+//   next();
+// });
 
-app.use((req, res, next) => {
-  res.status(201);
-  next();
-});
+// app.use((req, res, next) => {
+//   res.status(201);
+//   next();
+// });
 
-app.use((req, res, next) => {
-  res.json({ message: 'Votre requête a bien été reçue !' });
-  next();
-});
+// app.use((req, res, next) => {
+//   res.json({ message: 'Votre requête a bien été reçue !' });
+//   next();
+// });
 
-app.use((req, res, next) => {
-  console.log('Réponse envoyée avec succès !');
-});
+// app.use((req, res, next) => {
+//   console.log('Réponse envoyée avec succès !');
+// });
 
 // Utilisation des routes signin et login
 app.use('/api/auth', userRoutes);
