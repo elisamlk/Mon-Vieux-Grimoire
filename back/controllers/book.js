@@ -32,6 +32,12 @@ exports.createBook = async (req, res, next) => {
         if (req.file) {
             filename = req.file.filename; // Chemin du fichier d'image téléchargé
         }
+        let averageRating = 0;
+        if(ratings.length === 1){
+            averageRating = ratings[0].grade;
+
+        }
+        console.log(averageRating, ratings);
 
         // Création d'un nouveau livre
         const newBook = new Book({
@@ -43,7 +49,7 @@ exports.createBook = async (req, res, next) => {
             genre: genre,
             ratings: ratings,
             // Initialiser la note à 0
-            averageRating: 0
+            averageRating: averageRating
         });
 
         // Enregistrer le nouveau livre dans la base de données
@@ -183,6 +189,17 @@ exports.updateBook = (req, res, next) => {
             res.status(500).json({ error: "Erreur lors de la recherche du livre." });
         });
 };
+
+
+
+exports.rateBook = (req, res, next) => {
+
+    // A gérer au moment de la création du livre ?
+}
+
+// BestRatings
+// Trier les livres par moyenne et prendre les trois premiers, fonction sort() et limit()
+
 
 
 
