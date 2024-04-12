@@ -194,7 +194,7 @@ exports.updateBook = (req, res, next) => {
 
 // Dans bookController.js
 exports.rateBook = async (req, res, next) => {
-    const userId = req.auth.userId;
+    const userId = req.body.userId;
     const bookId = req.params.id;
     const { rating } = req.body;
 
@@ -244,7 +244,7 @@ exports.rateBook = async (req, res, next) => {
 
         // Enregistrer les modifications du livre
         await book.save();
-       
+
 
         // Renvoyer le livre mis à jour en réponse
         res.status(200).json({ message: 'Note du livre mise à jour avec succès.', book });
@@ -262,18 +262,19 @@ exports.getBestRatingBook = (req, res, next) => {
     Book.find()
         .sort({ averageRating: -1 }) // Trier les livres par note moyenne de manière décroissante
         .limit(3) // Limiter le résultat aux trois premiers livres
-        .then(bestBooks => {
+        .then((bestBooks) => {
             // Afficher le contenu de bestBooks dans la console
             // console.log("Meilleurs livres :", bestBooks);
-            
+
             // Renvoyer les trois meilleurs livres
             res.status(200).json(bestBooks);
         })
-        .catch(error => {
+        .catch((error) => {
             // Gérer les erreurs
             // console.error("Erreur lors de la récupération des meilleurs livres :", error);
             res.status(500).json({ error: "Erreur lors de la récupération des meilleurs livres." });
         });
+
 };
 
 
